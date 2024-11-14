@@ -1,27 +1,23 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import {theme} from "./theme"
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import Game from "@/components/Game"
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.textContainer} >Building 2D game with RN</Text>
+    <GestureHandlerRootView style={styles.container}>
+      {/*<Text style={styles.textContainer} >Building 2D game with RN</Text>*/}
+      <Game />
       <StatusBar style="auto" />
-    </View>
+    </GestureHandlerRootView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  textContainer: {
-    color: theme.colorAtomicTangerine,
-    backgroundColor: theme.colorTeaGreen,
-    fontWeight: "900",
-    fontSize: 23
+    backgroundColor: theme.colorWhite
+
   }
 });
