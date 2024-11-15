@@ -1,40 +1,45 @@
-// This File contains all the Game mechanics and game logic
+
 
 import {theme} from "@/../theme"
-import { boardHeight } from '@/constants';
-import { SafeAreaView, View, StyleSheet, Button } from 'react-native';
+import {ballRadius, ballSpeed, boardHeight} from '@/constants';
+import {SafeAreaView, View, StyleSheet, Button, useWindowDimensions} from 'react-native';
 import Animated, {
-    useSharedValue, useAnimatedStyle, withSpring,
+    useSharedValue, useAnimatedStyle, withSpring, withTiming, useFrameCallback,
 } from "react-native-reanimated";
+import {BallData} from "@/types";
+import {GameContext} from "@/GameContext";
+import {Ball} from "@/components/Ball";
+
 
 export default function Game() {
 
-    const x = useSharedValue(0)
 
-    const moveBall = () => {
-        x.value = x.value + 10
+    const {width} = useWindowDimensions()
 
-    }
-
-    const ballStyle = useAnimatedStyle(() => {
-        return {
-            left: withSpring(x.value +100, {duration:1000})
-        }
+    const ball = useSharedValue<BallData>({
+        x: width / 2,
+        y: boardHeight - ballRadius,
+        r: ballRadius,
+        dx: -1,
+        dy: -1
     })
 
 
-
     return (
+        <GameContext.Provider value={{ball}}>
         <SafeAreaView style={styles.container}>
             <View style={styles.board}>
                 {/* TODO: Add game elements */}
 
-                <Animated.View style={[styles.ball, ballStyle]}> </Animated.View>
+                <Ball />
 
             </View>
 
-            <Button title="Move Ball" onPress={moveBall} />
+
+            <Button title="Move Ball"  />
         </SafeAreaView>
+        </GameContext.Provider>
+
     );
 }
 
@@ -48,14 +53,5 @@ const styles = StyleSheet.create({
         height: boardHeight,
         marginVertical: 'auto',
         overflow: 'hidden',
-    },
-    ball: {
-        width:50,
-        height:50,
-        backgroundColor: theme.colorWhite,
-        borderRadius: 50,
-        position: 'absolute',
-        top: boardHeight/2,
-
     }
 });
