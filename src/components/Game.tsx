@@ -4,8 +4,7 @@ import {theme} from "@/../theme"
 import { boardHeight } from '@/constants';
 import { SafeAreaView, View, StyleSheet, Button } from 'react-native';
 import Animated, {
-    useSharedValue, useAnimatedStyle, withTiming
-    , withSpring, withDecay, withSequence
+    useSharedValue, useAnimatedStyle, withSpring,
 } from "react-native-reanimated";
 
 export default function Game() {
